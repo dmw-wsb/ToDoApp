@@ -1,0 +1,29 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Task List</h2>
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.title }} - {{ task.description }} - Due: {{ task.due_date }}
+            {% if task.is_completed %}
+                <a href="{% url 'mark_task_incomplete' task.id %}"><button>Incomplete</button></a>
+            {% else %}
+                <a href="{% url 'mark_task_complete' task.id %}"><button>Complete</button></a>
+            {% endif %}
+            <a href="{% url 'edit_task' task.id %}"><button>Edit</button></a>
+            <a href="{% url 'delete_task' task.id %}"><button>Delete</button></a>
+            {% if task.email %}
+                <a href="{% url 'send_email' task.id %}"><button>Send Email</button></a>
+            {% endif %}
+            {% if task.phone_number %}
+                <a href="{% url 'make_phone_call' task.id %}"><button>Make Phone Call</button></a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No tasks found.</li>
+    {% endfor %}
+</ul>
+<hr>
+<a href="{% url 'create_task' %}"><button>Add Task</button></a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<h2>Send Email</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label for="subject">Subject:</label><br>
+    <input type="text" id="subject" name="subject" value="Task: {{ task.title }}"><br><br>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message">{{ task.description }}</textarea><br><br>
+    <button type="submit">Send Email</button>
+</form>
+{% endblock %}
